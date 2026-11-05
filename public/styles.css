@@ -1,0 +1,456 @@
+:root {
+  --bg: #0a0a0f;
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-strong: rgba(255, 255, 255, 0.12);
+  --text: #f0f0f5;
+  --text-muted: #a0a0b0;
+  --accent: #c0c0d0;
+  --chrome-1: #e8e8f0;
+  --chrome-2: #a8a8c0;
+  --chrome-3: #707088;
+  --success: #4ade80;
+  --danger: #f87171;
+  --pending: #fbbf24;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(ellipse at 20% 20%, rgba(180, 180, 220, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(140, 140, 180, 0.1) 0%, transparent 50%),
+    linear-gradient(180deg, #0a0a12 0%, #12121a 100%);
+}
+
+#app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 16px 16px 100px;
+  min-height: 100vh;
+}
+
+/* === Liquid Chrome Text === */
+.chrome-text {
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #d0d0e0 25%,
+    #a0a0c0 50%,
+    #e0e0f0 75%,
+    #ffffff 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: chrome-shine 6s ease-in-out infinite;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+@keyframes chrome-shine {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* === Header === */
+.header {
+  text-align: center;
+  padding: 24px 0 16px;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: 4px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* === Navigation === */
+.nav {
+  display: flex;
+  gap: 6px;
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 6px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.nav-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 10px 4px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.nav-btn.active {
+  background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(200,200,230,0.12));
+  color: var(--text);
+  box-shadow: 0 0 20px rgba(255,255,255,0.08);
+}
+
+/* === Cards === */
+.liquid-card {
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,0.09) 0%,
+    rgba(255,255,255,0.03) 100%
+  );
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 24px;
+  padding: 24px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 
+    0 8px 32px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.05),
+    transparent
+  );
+  animation: liquid-flow 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes liquid-flow {
+  0%, 100% { transform: translateX(-30%); }
+  50% { transform: translateX(30%); }
+}
+
+/* === Pages === */
+.page {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* === Buttons === */
+.btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 12px;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, #e8e8f0 0%, #b0b0c8 50%, #d8d8e8 100%);
+  color: #1a1a22;
+  box-shadow: 0 4px 20px rgba(200,200,230,0.3);
+}
+
+.btn.primary:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 10px rgba(200,200,230,0.2);
+}
+
+.btn.secondary {
+  background: var(--surface-strong);
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.btn.danger {
+  background: rgba(248, 113, 113, 0.2);
+  color: var(--danger);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+}
+
+.btn.success {
+  background: rgba(74, 222, 128, 0.2);
+  color: var(--success);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+/* === Inputs === */
+.input {
+  width: 100%;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  padding: 14px 16px;
+  color: var(--text);
+  font-size: 15px;
+  margin-bottom: 12px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  border-color: rgba(200,200,230,0.5);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+textarea.input {
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* === Price list === */
+.price-section {
+  margin-bottom: 24px;
+}
+
+.price-section h3 {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.price-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 0;
+  font-size: 15px;
+  gap: 12px;
+}
+
+.price-item span:last-child {
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--chrome-1);
+}
+
+.price-item.hint {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.price-big {
+  font-size: 42px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff, #c0c0d8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 8px 0;
+}
+
+.info-card {
+  text-align: center;
+}
+
+.hint {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* === Slots === */
+.slots-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.slot-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: rgba(0,0,0,0.25);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.slot-item:active {
+  transform: scale(0.98);
+}
+
+.slot-item.selected {
+  border-color: rgba(200,200,230,0.6);
+  background: rgba(200,200,230,0.12);
+  box-shadow: 0 0 20px rgba(200,200,230,0.15);
+}
+
+.slot-date {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.slot-time {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.loading {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 40px 0;
+}
+
+/* === Payment === */
+.payment-info {
+  text-align: center;
+  margin: 16px 0;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+.qr-box {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  padding: 16px;
+  background: #fff;
+  border-radius: 20px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.qr-box img {
+  width: 220px;
+  height: 220px;
+  display: block;
+}
+
+.important-note {
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 14px;
+  padding: 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 16px 0;
+  text-align: center;
+}
+
+.success-icon {
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+/* === Admin === */
+.admin-add-slot {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.admin-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-slot {
+  background: rgba(0,0,0,0.3);
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.admin-slot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.admin-slot-status {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-available { background: rgba(74,222,128,0.15); color: var(--success); }
+.status-pending { background: rgba(251,191,36,0.15); color: var(--pending); }
+.status-booked { background: rgba(96,165,250,0.15); color: #60a5fa; }
+.status-cancelled { background: rgba(248,113,113,0.15); color: var(--danger); }
+
+.admin-slot-info {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-actions .btn {
+  flex: 1;
+  min-width: 100px;
+  padding: 10px;
+  font-size: 13px;
+  margin-top: 0;
+}
+
+/* Telegram theme override */
+body.tg-dark {
+  /* already dark */
+}

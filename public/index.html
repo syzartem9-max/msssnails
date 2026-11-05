@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>MS_NAILS — Запись</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo chrome-text">MS_NAILS</div>
+      <div class="subtitle">онлайн-запись</div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+      <button class="nav-btn active" data-page="home">Главная</button>
+      <button class="nav-btn" data-page="price">Прайс</button>
+      <button class="nav-btn" data-page="book">Запись</button>
+      <button class="nav-btn" data-page="admin">Админ</button>
+    </nav>
+
+    <!-- Pages -->
+    <main>
+      <!-- HOME -->
+      <section id="page-home" class="page active">
+        <div class="card liquid-card">
+          <h2 class="chrome-text">Добро пожаловать</h2>
+          <p>Запишись на маникюр в несколько кликов.<br>Красиво. Быстро. Удобно.</p>
+          <button class="btn primary" onclick="showPage('book')">Выбрать время</button>
+        </div>
+        <div class="card liquid-card info-card">
+          <h3>Предоплата</h3>
+          <p class="price-big">300 ₽</p>
+          <p class="hint">Оплата по СБП / Сбербанк<br>после выбора слота</p>
+        </div>
+      </section>
+
+      <!-- PRICE -->
+      <section id="page-price" class="page">
+        <div class="card liquid-card">
+          <h2 class="chrome-text">Прайс-лист</h2>
+          
+          <div class="price-section">
+            <h3>Наращивание</h3>
+            <div class="price-item"><span>Длина 1–2</span><span>2 000 ₽</span></div>
+            <div class="price-item"><span>Длина 3–4</span><span>2 300 ₽</span></div>
+            <div class="price-item"><span>Длина 5–6</span><span>2 600 ₽</span></div>
+            <div class="price-item hint"><span>Каждая след. единица</span><span>+100 ₽</span></div>
+          </div>
+
+          <div class="price-section">
+            <h3>Покрытие натуральных</h3>
+            <div class="price-item"><span>Покрытие гелем</span><span>1 500 ₽</span></div>
+            <div class="price-item"><span>Моделирование</span><span>1 800 ₽</span></div>
+          </div>
+
+          <div class="price-section">
+            <h3>Дизайн</h3>
+            <div class="price-item"><span>Light</span><span>200 ₽</span></div>
+            <div class="price-item"><span>Medium</span><span>400 ₽</span></div>
+            <div class="price-item"><span>Hard</span><span>от 600 ₽</span></div>
+            <div class="price-item"><span>Френч</span><span>500 ₽</span></div>
+            <div class="price-item"><span>Втирка, кошачий глаз, битое стекло, аэрограф, сухоцветы...</span><span>300 ₽</span></div>
+          </div>
+
+          <div class="price-section">
+            <h3>Дополнительно</h3>
+            <div class="price-item"><span>Снятие + комб. маникюр</span><span>1 200 ₽</span></div>
+            <div class="price-item"><span>Комбинированный маникюр</span><span>1 000 ₽</span></div>
+            <div class="price-item"><span>Снятие чужой работы</span><span>300 ₽</span></div>
+            <div class="price-item"><span>Снятие моей работы</span><span>300 ₽</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BOOK -->
+      <section id="page-book" class="page">
+        <div class="card liquid-card">
+          <h2 class="chrome-text">Выбор времени</h2>
+          <div id="slots-list" class="slots-list">
+            <div class="loading">Загрузка слотов...</div>
+          </div>
+        </div>
+
+        <!-- Форма записи (скрыта пока не выбран слот) -->
+        <div id="booking-form" class="card liquid-card hidden">
+          <h3>Данные для записи</h3>
+          <input type="text" id="client-name" placeholder="Ваше имя *" class="input" />
+          <input type="tel" id="client-phone" placeholder="Телефон *" class="input" />
+          <input type="text" id="client-username" placeholder="@username (Telegram)" class="input" />
+          <textarea id="client-service" placeholder="Какая услуга / дизайн?" class="input" rows="2"></textarea>
+          <textarea id="client-comment" placeholder="Комментарий (необязательно)" class="input" rows="2"></textarea>
+          
+          <button class="btn primary" id="btn-submit-booking">Перейти к оплате</button>
+        </div>
+
+        <!-- Экран оплаты -->
+        <div id="payment-screen" class="card liquid-card hidden">
+          <h2 class="chrome-text">Предоплата 300 ₽</h2>
+          <p class="payment-info">
+            Переведите <strong>300 ₽</strong> на Сбербанк<br>
+            <strong id="pay-phone">+79226466607</strong><br>
+            <span id="pay-name">Варвара Сергеевна С</span>
+          </p>
+          
+          <div class="qr-box">
+            <img id="qr-image" src="" alt="QR код" />
+          </div>
+
+          <div class="important-note">
+            ⚠️ <strong>Обязательно</strong> укажите в комментарии к переводу ваш <strong>@username</strong>
+          </div>
+
+          <button class="btn primary" id="btn-i-paid">Я оплатил</button>
+          <button class="btn secondary" onclick="showPage('book')">Назад</button>
+        </div>
+
+        <!-- Успех -->
+        <div id="success-screen" class="card liquid-card hidden">
+          <div class="success-icon">✨</div>
+          <h2 class="chrome-text">Заявка отправлена!</h2>
+          <p>Админ проверит оплату и подтвердит запись.<br>Мы напишем вам в Telegram.</p>
+          <button class="btn primary" onclick="showPage('home')">На главную</button>
+        </div>
+      </section>
+
+      <!-- ADMIN -->
+      <section id="page-admin" class="page">
+        <div id="admin-login" class="card liquid-card">
+          <h2 class="chrome-text">Админ-панель</h2>
+          <input type="text" id="admin-login-input" placeholder="Логин" class="input" value="admin" />
+          <input type="password" id="admin-password-input" placeholder="Пароль" class="input" />
+          <button class="btn primary" id="btn-admin-login">Войти</button>
+        </div>
+
+        <div id="admin-panel" class="hidden">
+          <div class="card liquid-card">
+            <h2 class="chrome-text">Управление слотами</h2>
+            
+            <div class="admin-add-slot">
+              <input type="date" id="new-slot-date" class="input" />
+              <input type="time" id="new-slot-time" class="input" value="12:00" />
+              <button class="btn primary" id="btn-add-slot">+ Добавить окошко</button>
+            </div>
+
+            <div id="admin-slots-list" class="admin-slots">
+              <!-- список слотов -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
